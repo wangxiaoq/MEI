@@ -10,6 +10,7 @@
 #include <linux/debugfs.h>
 #include <linux/string.h>
 #include <linux/spinlock.h>
+#include <linux/sched.h>
 
 #define MODNAME "mei"
 
