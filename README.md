@@ -1,4 +1,4 @@
-#MEI (Memory Error Injection)
+# MEI (Memory Error Injection)
 
 *Wang Xiaoqiang<wang_xiaoq@126.com> Distributed & Embedded System Lab (DSLab)*
 
@@ -10,7 +10,7 @@ The MEI architecture is as follows:
 
 ![architecture](./architecture.en.png)
 
-##Usage
+## Usage
 1. cd MEI #enter the directory of MEI.
 2. make
 3. make install
@@ -21,10 +21,10 @@ The MEI architecture is as follows:
 8. sudo ./del-inject 1 #delete the previously injected error, argument "1" here is the first element in ./inject-file representing the physical address of memory error.
 9. sudo cat /sys/kernel/debug/MEI/inject_errors
 
-###memerr-inject
+### memerr-inject
 memerr-inject is a tool to inject memory errors. It reads the injected errors information from a file and parses it, and then injects the error into the kernel.
 
-####inject-file Format
+#### inject-file Format
 We use the following structure to represent injected memory errors in kernel:
 ```
 struct inject_memory_err {
@@ -40,22 +40,22 @@ The member 'phy_addr' is the target physical memory address to inject errors. 'b
 We use a very simple format of inject-file. As you can see in the example inject-file, it only contains values of these members of the structure in order. For example:
 
 ```
-                bit
-                 /
-err_bit_num      |
-  /  ---------------
-  |  |             |
-1 2  0 1 0 0 0 0 0 1  0 1 0 0 0 0 0 1
-|                     |             |
-\                     ---------------
-phy_addr                     \
-                         bit_value
+                      bit
+                       /
+      err_bit_num      |
+           /  ---------------
+           |  |             |
+6194567860 2  0 1 0 0 0 0 0 1  0 1 0 0 0 0 0 1
+     |                         |             |
+     \                         ---------------
+  phy_addr                            \
+                                 bit_value
 ```
 
-###del-inject Usage
+### del-inject Usage
 del-inject is used to delete some injected memory errors from the kernel. It takes a command line parameter standing for the physical address at which the injected error happens. If all of the injected errors don't happend in the address, del-inject will ignore it and simply return.
 
-###debugfs Interface
+### debugfs Interface
 After the kernel module installation, you can see a directory in debugfs(usually mounted on /sys/kernel/debug/) called 'MEI'. There is a file under 'MEI' dirctory called 'inject_errors'. You can see and manipulate all injected errors through this interface.
 
 Read all injected errors' information from the interface:
@@ -67,8 +67,8 @@ Clear all injected errors:
 echo "clear" > inject_errors
 ```
 
-##LICENSE
+## LICENSE
 This software is under the license of GPL v2.
 
-##PUBLICATION
+## PUBLICATION
 *Xiaoqiang Wang, Xuguo Wang, Fangfang Zhu, Qingguo Zhou, Rui Zhou, MEI: A Light Weight Memory Error Injection Tool for Validating Online Memory Testers,* International Symposium on Software and System Reliability (ISSSR) 2016. [pdf](mei.pdf), [ppt](mei-ppt.pdf)
