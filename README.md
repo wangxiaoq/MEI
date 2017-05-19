@@ -18,11 +18,30 @@ The MEI architecture is as follows:
 5. make
 6. sudo ./memerr-inject ./inject-file
 7. sudo cat /sys/kernel/debug/MEI/inject_errors
-8. sudo ./del-inject 1 #delete the previously injected error, argument "1" here is the first element in ./inject-file representing the physical address of memory error.
+8. sudo ./del-inject 6194567860 #delete the previously injected error, argument "6194567860" here is the first element in ./inject-file representing the physical address of memory error.
 9. sudo cat /sys/kernel/debug/MEI/inject_errors
 
 ### memerr-inject
 memerr-inject is a tool to inject memory errors. It reads the injected errors information from a file and parses it, and then injects the error into the kernel.
+
+#### gen-single-inject-file.py and gen-multi-inject-file.py
+Two scripts are provided to generate error inject file automatically. 'gen-single-inject-file.py' can be used to generate single-bit memory errors and 'gen-multi-inject-file.py' is for multi-bit memory errors. For example:
+
+`./gen-single-inject-file.py 10`
+
+Above command can generate 10 sing-bit memory errors in an inject file named 'single-inject-file.10' (yours can differ from mine):
+```
+3350121056 1  0 0 1 0 0 0 0 0  0 0 0 0 0 0 0 0
+3516773813 1  0 1 0 0 0 0 0 0  0 1 0 0 0 0 0 0
+6279310205 1  0 0 0 0 0 0 0 1  0 0 0 0 0 0 0 1
+2632506354 1  0 1 0 0 0 0 0 0  0 0 0 0 0 0 0 0
+3408170433 1  0 0 0 0 0 0 1 0  0 0 0 0 0 0 1 0
+699552298 1  0 0 0 1 0 0 0 0  0 0 0 0 0 0 0 0
+1128567382 1  0 0 0 1 0 0 0 0  0 0 0 0 0 0 0 0
+2834442365 1  1 0 0 0 0 0 0 0  1 0 0 0 0 0 0 0
+5442120705 1  0 0 1 0 0 0 0 0  0 0 1 0 0 0 0 0
+4036826454 1  0 0 0 0 0 0 0 1  0 0 0 0 0 0 0 0
+```
 
 #### inject-file Format
 We use the following structure to represent injected memory errors in kernel:
