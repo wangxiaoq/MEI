@@ -8,8 +8,6 @@ endif
 
 obj-m := $(target).o
 
-EXTRA_CFLAGS += -DEXPORT_SYMTAB
-
 .PHONY: module
 module:
 	make -C $(KERNEL_DIR) M=$(PWD) modules
@@ -25,7 +23,7 @@ cocci:
 .PHONY: clean
 clean:
 	make -C $(KERNEL_DIR) M=$(PWD) clean
-	rm *~ > /dev/null 2>&1
+	if [ "$(wildcard *~)" != "" ]; then rm $(wildcard *~); fi
 
 .PHONY: install
 install:
